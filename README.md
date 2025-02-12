@@ -1,0 +1,45 @@
+# Risk Factors & Final Premium Calculation in Health Insurance Pricing
+Insurance pricing models assess risk using key health and lifestyle indicators. 
+In this model, I derive risk factors based on common actuarial principles and medical research.
+
+## Risk Factors
+- **Age Factor**: Older individuals are more likely to require medical care.
+- A 2% premium increase per year over age 30 accounts for the rising risk of chronic conditions and hospitalization.
+- **BMI Factor**: Higher BMI (Body Mass Index) correlates with increased health risks (e.g., heart disease, diabetes). A 3% increase per unit above BMI 25 adjusts for potential obesity-related health costs.
+- **Smoker Factor**: Smokers face significantly higher health risks, including lung disease and cardiovascular issues. A 50% surcharge (1.5 multiplier) reflects increased medical costs.
+- **Chronic Condition Factor**: Each chronic disease (e.g., diabetes, hypertension) adds 10% to the premium since long-term medical care and hospital visits increase.
+- **Risk Score Factor**: A risk score between 0 and 1 represents an overall health risk assessment (including family history, previous claims, and lifestyle). The premium scales by 1 + Risk Score to proportionally reflect risk.
+
+## Formula to Calculate Final Premium
+The Final Premium is derived using a multiplicative pricing model:
+
+Final Premium = Base Premium × Age Factor × BMI Factor × Smoker Factor × Condition Factor × Risk Factor
+where
+- Base Premium = $1000$ (starting cost for all policies)
+- Age Factor = 1 +(Age−30)x0.02
+- BMI Factor = 1 +(BMI−25)×0.03
+- Smoker Factor = 1.5 (if smoker) or 1.0 (if non-smoker)
+- Condition Factor = 1+Chronic Conditions×0.1 
+- Risk Factor = 1+Risk Score
+
+  <img src="https://github.com/haileyplay/youtube-music-generator-mood/blob/main/Moodify_index.jpg" width="450" height="560">  <img src="https://github.com/haileyplay/youtube-music-generator-mood/blob/main/Moodify_songlist.jpg" width="450" height="560">
+
+## Example Calulation
+For a 45-year-old male smoker with
+- BMI = 27.5
+- 2 chronic conditions
+- Risk Score = 0.85
+
+Calcuation: 
+1. Age Factor = 1 + (45-30)x0.02 = 1.3
+2. BMI Factor = 1 + (27.5-25) x 0.03 = 1.075
+3. Smoke Factor = 1.5
+4. Condition Factor = 1 + 2 x0.1 = 1.2
+5. Risk Factor = 1 + 0.85 = 1.85
+Final Premium = 1000x1.3x1.075x1.5x1.2x1.85 = 1000 x 4.967 = $4967
+
+## Library
+We'll use dplyr (part of tidyverse) to:
+✅ Mutate new columns to calculate risk factors and final premium.
+✅ Select and arrange columns for a clean output.
+✅ Filter and group data to analyze trends.
