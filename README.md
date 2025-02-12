@@ -33,6 +33,7 @@ Calcuation:
 3. Smoke Factor = 1.5
 4. Condition Factor = 1 + 2 x0.1 = 1.2
 5. Risk Factor = 1 + 0.85 = 1.85
+
 Final Premium = 1000x1.3x1.075x1.5x1.2x1.85 = 1000 x 4.967 = **$4967**
 
 ## Library
