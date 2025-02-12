@@ -12,7 +12,7 @@ In this model, I derive risk factors based on common actuarial principles and me
 ## Formula to Calculate Final Premium
 The Final Premium is derived using a multiplicative pricing model:
 
-Final Premium = Base Premium × Age Factor × BMI Factor × Smoker Factor × Condition Factor × Risk Factor
+**Final Premium = Base Premium × Age Factor × BMI Factor × Smoker Factor × Condition Factor × Risk Factor**
 where
 - Base Premium = $1000$ (starting cost for all policies)
 - Age Factor = 1 +(Age−30)x0.02
