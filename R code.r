@@ -1,6 +1,5 @@
 # Load necessary libraries
-library(dplyr)
-library(ggplot2)
+library(tidyverse)  # Include dplyr, ggplot2, tidyr, etc
 
 # Sample dataset
 insurance_data <- data.frame(
@@ -16,7 +15,7 @@ insurance_data <- data.frame(
   Risk_Score = c(0.85, 0.20, 0.92, 0.55, 0.30, 0.95, 0.15, 0.78, 0.40, 0.22)
 )
 
-# Define base premium -------------------------------
+# Define base premium ---------------------------------
 base_premium <- 1000
 
 # Calculate insurance premium using risk factors and tidyverse library (mutate)
@@ -32,10 +31,10 @@ insurance_data <- insurance_data %>%
   dplyr::select(insurance_data, Policy_ID, Age, BMI, Smoker, Chronic_Conditions, Risk_Score, Final_Premium) %>%
   arrange(desc(Final_Premium))
 
-# Print final premium table ------------------------
+# Print final premium table
 print(inssurance_data)
 
-# Visualization: Risk Score vs. Premium
+# Visualization: Risk Score vs. Premium -------------------
 # Scatter plot: Risk Score vs. Final Premium
 ggplot(insurance_data, aes(x = Risk_Score, y = Final_Premium)) +
   geom_point(aes(color = Smoker, size = Chronic_Conditions)) +
@@ -47,7 +46,7 @@ ggplot(insurance_data, aes(x = Risk_Score, y = Final_Premium)) +
        size = "Chronic Conditions") +
   theme_minimal()
 
-# Filtering & Grouping for Insights--------------------
+# Filtering & Grouping for Insights-----------------------
 # Average premium by smoking status
 insurance_data %>%
   group_by(Smoker) %>%
