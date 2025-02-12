@@ -16,10 +16,10 @@ insurance_data <- data.frame(
   Risk_Score = c(0.85, 0.20, 0.92, 0.55, 0.30, 0.95, 0.15, 0.78, 0.40, 0.22)
 )
 
-# Define base premium
+# Define base premium -------------------------------
 base_premium <- 1000
 
-# Calculate insurance premium using risk factors
+# Calculate insurance premium using risk factors and tidyverse library (mutate)
 insurance_data <- insurance_data %>%
   mutate(
     Age_Factor = 1 + (Age - 30) * 0.02,  # Increase by 2% per year over 30
@@ -28,14 +28,17 @@ insurance_data <- insurance_data %>%
     Condition_Factor = 1 + Chronic_Conditions * 0.1,  # 10% increase per condition
     Risk_Factor = 1 + Risk_Score,  # Scaling by risk score
     Final_Premium = base_premium * Age_Factor * BMI_Factor * Smoker_Factor * Condition_Factor * Risk_Factor
-  )
+  ) %>%
+  dplyr::select(insurance_data, Policy_ID, Age, BMI, Smoker, Chronic_Conditions, Risk_Score, Final_Premium) %>%
+  arrange(desc(Final_Premium))
 
-# Print final premium table
-print(dplyr::select(insurance_data, Policy_ID, Age, BMI, Smoker, Chronic_Conditions, Risk_Score, Final_Premium))
+# Print final premium table ------------------------
+print(inssurance_data)
 
 # Visualization: Risk Score vs. Premium
+# Scatter plot: Risk Score vs. Final Premium
 ggplot(insurance_data, aes(x = Risk_Score, y = Final_Premium)) +
-  geom_point(aes(color = as.factor(Smoker), size = Chronic_Conditions)) +
+  geom_point(aes(color = Smoker, size = Chronic_Conditions)) +
   geom_smooth(method = "lm", se = FALSE, color = "blue") +
   labs(title = "Risk Score vs. Insurance Premium",
        x = "Risk Score",
@@ -43,3 +46,17 @@ ggplot(insurance_data, aes(x = Risk_Score, y = Final_Premium)) +
        color = "Smoker Status",
        size = "Chronic Conditions") +
   theme_minimal()
+
+# Filtering & Grouping for Insights--------------------
+# Average premium by smoking status
+insurance_data %>%
+  group_by(Smoker) %>%
+  summarise(Average_Premium = mean(Final_Premium)) %>%
+  print()
+
+# Premium distribution for people over 40
+insurance_data %>%
+  filter(Age > 40) %>%
+  arrange(desc(Final_Premium)) %>%
+  print()
+
